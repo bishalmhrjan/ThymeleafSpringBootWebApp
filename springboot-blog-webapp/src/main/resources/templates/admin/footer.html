@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
-$END$
+<footer class="footer-copyright text-center bg-dark py-3"
+        style="position:fixed; bottom:0; height:80px; width:100%;"
+th:fragment="footer">
+
+    <div>
+        <strong>
+            Copyright &copy: 2022 <a href="#">links</a>
+            All rights reserved.
+        </strong>
+    </div>
+</footer>
 </body>
 </html>
