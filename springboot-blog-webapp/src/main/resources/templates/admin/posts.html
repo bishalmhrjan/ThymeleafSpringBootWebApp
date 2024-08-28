@@ -16,6 +16,24 @@
     <div class="row">
         <h1>List Blog Posts</h1>
     </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <form class="form-inline" th:action="@{/admin/posts/search}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query"/>
+                        <span class="input-group-btn"></span>
+                        <button class="btn btn-primary" type="submit">Search</button>
+
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <br>
     <table class="table table-striped table-hover table-bordered">
         <thead class="table-dark">
         <th style="width:10%">#</th>
@@ -30,9 +48,11 @@
             <td th:text="${post.title != null ? post.title : 'Title Missing'}">post title</td>
 
             <td th:text="${post.shortDescription}">Post Description</td>
-            <td th:text="${post.createdOn}">Post Created On</td>
+            <td th:text="${#temporals.format(post.createdOn,'dd MM YYYY')}">Post Created On</td>
             <td>
                 <a th:href="@{/admin/posts/{postId}/edit(postId=${post.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/admin/posts/{postId}/delete(postId=${post.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/admin/posts/{postUrl}/view(postUrl=${post.url})}" class="btn btn-info">View</a>
             </td>
 
 

@@ -45,4 +45,24 @@ public class PostServiceImplementation implements PostService {
         Post post = PostMapper.mapToPost(postDTO);
         postRepository.save(post);
     }
+
+    @Override
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
+    }
+
+    @Override
+    public PostDTO finPostByUrl(String postUrl) {
+        Post post = postRepository.findByUrl(postUrl).get();
+
+        return  PostMapper.mapToPostDTO(post);
+    }
+
+    @Override
+    public List<PostDTO> searchPosts(String query) {
+        List<Post> posts = postRepository.searchPosts(query);
+        return  posts.stream().
+                map(PostMapper ::mapToPostDTO).
+                collect(Collectors.toList());
+    }
 }
