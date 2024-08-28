@@ -14,7 +14,7 @@
             <h2 class="text-center">Edit Post</h2>
         </div>
         <div class="card-body">
-            <form role="form" method="post" th:action="@{/admin/posts}" th:object="${post}">
+            <form role="form" method="post" th:action="@{/admin/posts/{postId}(postId=${post.id})}" th:object="${post}">
                 <input type="hidden" th:field="*{id}">
                 <input type="hidden" th:field="*{url}">
                 <input type="hidden" th:field="*{createdOn}">
@@ -60,6 +60,40 @@
     </div>
 </div>
 <div th:replace="~{admin/footer :: footer}"></div>
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
 
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.0.0/"
+        }
+    }
+</script>
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Paragraph,
+        Bold,
+        Italic,
+        Font
+    } from 'ckeditor5';
+
+    ClassicEditor
+        .create( document.querySelector( '#content' ), {
+            plugins: [ Essentials, Paragraph, Bold, Italic, Font ],
+            toolbar: [
+                'undo', 'redo', '|', 'bold', 'italic', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+            ]
+        } )
+        .then( editor => {
+            window.editor = editor;
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 </body>
 </html>

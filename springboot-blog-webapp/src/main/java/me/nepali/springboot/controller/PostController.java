@@ -75,4 +75,18 @@ public class PostController {
         return "admin/edit-post";
     }
 
+    //handler method to handle edit post form Submit Request
+    @PostMapping("/admin/posts/{postId}") public String updatePost(@PathVariable("postId") Long postId, @Valid @ModelAttribute("post") PostDTO post, BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("post",post);
+            return "admin/edit-post";
+        }
+        post.setId(postId);
+        postService.updatePost(post);
+        return "redirect:/admin/posts";
+
+
+    }
+
+
 }
