@@ -27,11 +27,14 @@
         <tbody>
         <tr th:each="post, postStat : ${posts}">
             <td th:text="${postStat.count}">1</td>
-            <td th:text="${post.title}">post title</td>
+            <td th:text="${post.title != null ? post.title : 'Title Missing'}">post title</td>
 
             <td th:text="${post.shortDescription}">Post Description</td>
             <td th:text="${post.createdOn}">Post Created On</td>
-            <td></td>
+            <td>
+                <a th:href="@{/admin/posts/{postId}/edit(postId=${post.id})}" class="btn btn-primary">Edit</a>
+            </td>
+
 
         </tr>
         </tbody>

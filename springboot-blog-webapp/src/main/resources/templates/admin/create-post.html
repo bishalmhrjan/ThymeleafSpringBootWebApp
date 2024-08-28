@@ -3,11 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 
 
-<div th:replace="admin/header :: header"></div>
+<div th:replace="~{admin/header :: header}"></div>
 
 <body>
 
-<div th:replace="admin/header :: navbar"></div>
+<div th:replace="~{admin/header :: navbar}"></div>
 <div class="container">
     <div class="row col-md-8 offset-md-2">
         <div class="card-header">
@@ -21,6 +21,7 @@
                 " name="title"
                     th:field="*{title}"
                 />
+                <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></p>
                 <br/>
                 <div class="mb-3"
                 > <label class="form-label"> Short Description</label>
@@ -34,6 +35,8 @@
 
 
                 </textarea>
+                    <p th:if="${#fields.hasErrors('shortDescription')}" class="text-danger" th:errors="*{shortDescription}"></p>
+
                 </div>
                 <div class="mb-3"
                 > <label class="form-label"> Content</label>
@@ -43,6 +46,8 @@
                               rows="12"
                               name="content"
                               th:field="*{content}"></textarea>
+                    <p th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></p>
+
                 </div>
             </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -50,6 +55,7 @@
         </div>
     </div>
 </div>
-<div th:replace="admin/footer :: footer"></div>
+<div th:replace="~{admin/footer :: footer}"></div>
+
  </body>
 </html>
