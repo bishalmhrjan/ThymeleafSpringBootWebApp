@@ -27,4 +27,13 @@ public class PostController {
         return "/admin/posts"; // admin is folder
     }
 
+
+    // Handler method to handle new post request
+
+    @GetMapping("admin/posts/newPost")
+    public String newPostForm(Model model){
+        PostDTO postDTO= new PostDTO();
+        model.addAttribute("post",postDTO);
+        return "admin/create-post";
+    }
 }
