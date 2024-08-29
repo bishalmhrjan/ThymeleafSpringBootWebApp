@@ -1,8 +1,10 @@
 package me.nepali.springboot.controller;
 
 import jakarta.validation.Valid;
+import me.nepali.springboot.dto.CommentDTO;
 import me.nepali.springboot.dto.PostDTO;
 import me.nepali.springboot.entity.Post;
+import me.nepali.springboot.service.CommentService;
 import me.nepali.springboot.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +17,13 @@ import java.util.List;
 @Controller
 public class PostController {
     private PostService postService;
+    private CommentService commentService;
 
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService= commentService;
     }
 
     //create handler method , GET Request and return model and view
@@ -54,6 +58,14 @@ public class PostController {
 
     }
 
+    //handler method to handle list comments request
+    @GetMapping("/admin/posts/comments")
+    public String postComments(Model model){
+        List<CommentDTO> comments = commentService.findAllComments();
+        model.addAttribute("comments",comments);
+        return "admin/comments";
+
+    }
     private static String getUrl(String postTitle){
         //OOps concets explained in java
         // oops-concepts-.explained-in-java

@@ -9,6 +9,9 @@ import me.nepali.springboot.repository.PostRepository;
 import me.nepali.springboot.service.CommentService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CommentServiceImplementation implements CommentService {
    private CommentRepository commentRepository;
@@ -25,6 +28,14 @@ public class CommentServiceImplementation implements CommentService {
         Comment comment = CommentMapper.mapToComment(commentDTO);
         comment.setPost(post);
         commentRepository.save(comment);
+    }
+
+    @Override
+    public List<CommentDTO> findAllComments() {
+        List<Comment> comments = commentRepository.findAll();
+
+        return comments.stream().map(CommentMapper :: mapToCommentDTO)
+                .collect(Collectors.toList());
     }
 
 }
