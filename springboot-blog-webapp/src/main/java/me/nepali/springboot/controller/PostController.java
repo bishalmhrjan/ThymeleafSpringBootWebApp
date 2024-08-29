@@ -85,7 +85,8 @@ public class PostController {
     }
 
     //handler method to handle edit post form Submit Request
-    @PostMapping("/admin/posts/{postId}") public String updatePost(@PathVariable("postId") Long postId, @Valid @ModelAttribute("post") PostDTO post, BindingResult result, Model model){
+    @PostMapping("/admin/posts/{postId}")
+    public String updatePost(@PathVariable("postId") Long postId, @Valid @ModelAttribute("post") PostDTO post, BindingResult result, Model model){
         if(result.hasErrors()){
             model.addAttribute("post",post);
             return "admin/edit-post";
@@ -122,6 +123,12 @@ public class PostController {
         List<PostDTO> posts= postService.searchPosts(query);
         model.addAttribute("posts",posts);
         return "admin/posts";
+    }
 
+    //handler method to handle delete comment requests
+    @GetMapping("/admin/posts/comments/{commentId}")
+    public String deleteComment(@PathVariable("commentId")Long commentId){
+        commentService.deleteComment(commentId);
+        return "redirect:/admin/posts/comments";
     }
 }
