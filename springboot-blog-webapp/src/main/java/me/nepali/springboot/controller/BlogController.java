@@ -1,5 +1,6 @@
 package me.nepali.springboot.controller;
 
+import me.nepali.springboot.dto.CommentDTO;
 import me.nepali.springboot.dto.PostDTO;
 import me.nepali.springboot.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,10 @@ public class BlogController {
     @GetMapping("/post/{postUrl}")
     private String showPost(@PathVariable("postUrl") String postUrl, Model model){
     PostDTO postDto = postService.finPostByUrl(postUrl);
+    CommentDTO commentDTO = new CommentDTO();
+
     model.addAttribute("post",postDto);
+    model.addAttribute("comment",commentDTO);
     return "blog/blog-post";
     }
 

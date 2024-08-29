@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.nepali.springboot.entity.Comment;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
@@ -25,6 +27,7 @@ public class PostDTO {
     private String shortDescription;
     private LocalDateTime createdOn;
     private LocalDateTime updateOn;
+    private Set<CommentDTO> comments;
 
 
 }

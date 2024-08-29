@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,5 +36,7 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updateOn;
 
+    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
+    private Set<Comment> comments = new HashSet<>();
 
-}
+ }
