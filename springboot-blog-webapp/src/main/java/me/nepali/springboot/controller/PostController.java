@@ -3,9 +3,10 @@ package me.nepali.springboot.controller;
 import jakarta.validation.Valid;
 import me.nepali.springboot.dto.CommentDTO;
 import me.nepali.springboot.dto.PostDTO;
-import me.nepali.springboot.entity.Post;
 import me.nepali.springboot.service.CommentService;
 import me.nepali.springboot.service.PostService;
+import me.nepali.springboot.util.ROLE;
+import me.nepali.springboot.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,11 +30,17 @@ public class PostController {
     //create handler method , GET Request and return model and view
     @GetMapping("/admin/posts")
     public String posts(Model model){
-        List<PostDTO> posts= postService.findAllPosts();
-        model.addAttribute("posts",posts);
-        return "/admin/posts"; // admin is folder
-    }
+        String role = SecurityUtils.getRole();
+        List<PostDTO> posts = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)){
+            posts = postService.findAllPosts();
+        }else{
+            posts = postService.findPostsByUser();
+        }
+        model.addAttribute("posts", posts);
 
+        return "/admin/posts";
+    }
 
     // Handler method to handle new post request
 
@@ -61,7 +68,14 @@ public class PostController {
     //handler method to handle list comments request
     @GetMapping("/admin/posts/comments")
     public String postComments(Model model){
-        List<CommentDTO> comments = commentService.findAllComments();
+        String role= SecurityUtils.getRole();
+        List<CommentDTO> comments = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)){
+            comments=commentService.findAllComments();
+        } else{
+            comments = commentService.findCommentsByPost();
+
+        }
         model.addAttribute("comments",comments);
         return "admin/comments";
 

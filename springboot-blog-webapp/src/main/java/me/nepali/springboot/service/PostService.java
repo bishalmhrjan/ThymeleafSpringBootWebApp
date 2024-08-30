@@ -8,6 +8,8 @@ public interface PostService {
 
     List<PostDTO> findAllPosts();
 
+    List<PostDTO> findPostsByUser();
+
     void createPost(PostDTO postDTO);
 
     PostDTO findPostById(Long id);
@@ -17,6 +19,9 @@ public interface PostService {
     void deletePost(Long post);
 
     PostDTO finPostByUrl(String postUrl);
+
+    PostDTO findPostByUrl(String postUrl);
+
     List<PostDTO> searchPosts(String query);
 
 }

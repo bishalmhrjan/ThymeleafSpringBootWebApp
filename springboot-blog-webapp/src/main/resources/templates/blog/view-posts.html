@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<div th:replace="blog/header :: header"></div>
+<div th:replace="~{blog/header :: header}"></div>
 
 <body>
-<div th:replace="blog/header :: navbar"></div>
+<div th:replace="~{blog/header :: navbar}"></div>
 <br/>
 <div class="container">
     <div class="row">
@@ -33,10 +33,10 @@
         </div>
         <div class="col-md-3">
             <!-- ----------!-!- Search Bar-->
-            <div th:replace="blog/search :: search"></div>
+            <div th:replace="~{blog/search :: search}"></div>
         </div>
     </div>
 </div>
-<div th:replace="blog/footer :: footer"></div>
+<div th:replace="~{blog/footer :: footer}"></div>
 </body>
 </html>

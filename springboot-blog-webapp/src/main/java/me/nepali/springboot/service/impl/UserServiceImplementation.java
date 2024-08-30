@@ -6,8 +6,9 @@ import me.nepali.springboot.entity.User;
 import me.nepali.springboot.repository.RoleRepository;
 import me.nepali.springboot.repository.UserRepository;
 import me.nepali.springboot.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import java.util.Arrays;
 
@@ -16,21 +17,23 @@ public class UserServiceImplementation implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImplementation(UserRepository userRepository,PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    private PasswordEncoder passwordEncoder;
+    public UserServiceImplementation(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.passwordEncoder= passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void saveUser(RegistrationDTO registrationDTO) {
+    public void saveUser(RegistrationDTO registrationDto) {
         User user = new User();
-        user.setName(registrationDTO.getFirstName()+" "+registrationDTO.getLastName());
-        user.setEmail(registrationDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
-        Role role = roleRepository.findByName("ROLLE_GUEST");
+        user.setName(registrationDto.getFirstName() + " " + registrationDto.getLastName());
+        user.setEmail(registrationDto.getEmail());
+        // use spring security to encrypt the password
+        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+        Role role = roleRepository.findByName("ROLE_GUEST");
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
@@ -40,3 +43,4 @@ public class UserServiceImplementation implements UserService {
         return userRepository.findByEmail(email);
     }
 }
+
