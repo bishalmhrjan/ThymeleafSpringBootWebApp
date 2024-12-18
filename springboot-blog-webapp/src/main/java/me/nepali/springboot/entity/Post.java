@@ -37,7 +37,7 @@ public class Post {
     private LocalDateTime updateOn;
 
     @ManyToOne
-    @JoinColumn(name = "created_by_id",nullable = false)
+    @JoinColumn(name = "created_by",nullable = false)
     private User createdBy;
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
