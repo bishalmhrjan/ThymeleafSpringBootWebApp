@@ -1,3 +1,5 @@
+# Thymeleaf SpringBoot WebApp in Spring MVC
+
 A simple blog web application built with **Spring MVC** and **Thymeleaf** where users can create blog posts and comment on posts as well as other comments. This project was developed as a personal learning exercise to practice using Spring Framework and Thymeleaf for web development.
 
 ## 🚀 Features
